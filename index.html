@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Near Me</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device=width, initial-scale=1">
+        <meta name="description" content="Click a button and get restaurants near you">
+        <link href="style.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <header>
+            <h1>Need a grub? </h1>
+        </header>
+
+        <main role="main">
+            <section class="interface">
+                <form class="main_form">
+                    <fieldset>
+                        <legend>Click the button</legend>
+                        <label for="location" hidden>Set Location: 
+                            <input class="loc_input" name="location" id="location" type="text" >
+                        </label>
+                        <button class="search_btn" type="submit">NEAR ME!</button>
+                        <label for="radius">Search Radius: 
+                            <input class="radius_input" name="radius" id="radius" type="number" min="0" value="10" required>
+                        </label>
+                        <label for="numSearch">Number of Search: 
+                            <input class="numSearch_input" name="numSearch" id="numSearch" type="number" min="1" value="5" required>
+                        </label>
+                    </fieldset>
+                </form>
+            </section>
+
+            <section class="display" hidden>
+                <div class="display_container">
+                   <ul class="result_list">
+
+                   </ul>
+                </div>
+            </section>
+
+            <section class="error_section" hidden>
+
+            </section>
+
+        </main>
+
+        <footer>
+            <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+            <script src="script.js" type="text/javascript"></script>
+        </footer>
+    </body>
+</html>
