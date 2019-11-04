@@ -3,7 +3,7 @@
     <head>
         <title>Near Me</title>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device=width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Click a button and get restaurants near you">
         <link href="style.css" rel="stylesheet" type="text/css">
     </head>
@@ -20,7 +20,9 @@
                         <label for="location" hidden>Set Location: 
                             <input class="loc_input" name="location" id="location" type="text" >
                         </label>
-                        <button class="search_btn" type="submit">NEAR ME!</button>
+                        <div>
+                            <button class="search_btn" type="submit">NEAR ME!</button>
+                        </div>
                         <label for="radius">Search Radius: 
                             <input class="radius_input" name="radius" id="radius" type="number" min="0" max="25" value="10" required> Miles
                         </label>
