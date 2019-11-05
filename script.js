@@ -52,14 +52,20 @@ function checkInput() {
                                 break;
                             case error.POSITION_UNAVAILABLE:
                                 console.log("Location cannot be found");
+                                $('.manual_loc').removeAttr('hidden');
+                                canITrack = false;
                                 displayError(error);
                                 break;
                             case error.TIMEOUT:
                                 console.log("The request to get the user location has timed out");
+                                $('.manual_loc').removeAttr('hidden');
+                                canITrack = false;
                                 displayError(error);
                                 break;
                             case error.UNKNOWN_ERROR:
                                 console.log("An unknown error occured");
+                                $('.manual_loc').removeAttr('hidden');
+                                canITrack = false;
                                 displayError(error);
                                 break;
                         }
