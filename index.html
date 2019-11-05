@@ -17,18 +17,18 @@
                 <form class="main_form">
                     <fieldset>
                         <legend>Click the button</legend>
-                        <label for="location" hidden>Set Location: 
-                            <input class="loc_input" name="location" id="location" type="text" >
+                        <label class="manual_loc" for="location" hidden>Set Location: 
+                            <input class="loc_input" name="location" id="location" type="text" placeholder="Enter a City" >
                         </label>
-                        <div>
-                            <button class="search_btn" type="submit">NEAR ME!</button>
-                        </div>
                         <label for="radius">Search Radius: 
                             <input class="radius_input" name="radius" id="radius" type="number" min="0" max="25" value="10" required> Miles
                         </label>
                         <label for="numSearch">Number of Search: 
                             <input class="numSearch_input" name="numSearch" id="numSearch" type="number" min="1" max="50" value="5" required>
                         </label>
+                        <div>
+                            <button class="search_btn" type="submit">NEAR ME!</button>
+                        </div>
                     </fieldset>
                 </form>
             </section>
@@ -41,7 +41,7 @@
                 </div>
             </section>
 
-            <section class="error_section" hidden>
+            <section class="error_sect" hidden>
 
             </section>
 

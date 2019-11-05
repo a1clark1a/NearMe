@@ -10,6 +10,7 @@ body {
 
 main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -18,5 +19,10 @@ fieldset{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 500px;
+}
+
+
+.result_img {
+    max-width: 250px;
+    max-height: 250px;
 }
