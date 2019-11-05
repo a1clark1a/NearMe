@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-size: 20px
 }
 
 body {
@@ -19,10 +20,19 @@ fieldset{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 }
 
 
 .result_img {
     max-width: 250px;
     max-height: 250px;
+}
+
+label, input, li {
+    margin: 10px;
+}
+
+li {
+    list-style: none;
 }
