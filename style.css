@@ -1,4 +1,18 @@
+/*GET APPROPRIATE FONT
+GET APPROPRIATE COLOR PALETTE */
+
+:root {
+    /*font variables*/
+    --main_font:'Fira Sans', sans-serif ;
+
+    /*color palette*/
+    --background_color: ;
+
+
+}
+
 * {
+    font-family: var(--main_font);
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -36,8 +50,45 @@ fieldset{
 
 label, input, li {
     margin: 10px;
+    text-align: center;
 }
 
 li {
     list-style: none;
+}
+
+.wrapper {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+}
+
+.cat_input{
+    width: 100%;
+    margin: 0;
+   
+}
+
+.categ_list{
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.auto_searchList div{
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.drop_list{
+    width: 100%;
 }

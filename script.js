@@ -2,12 +2,89 @@
 //GLOBAL VARS
 const yelpBaseUrl = 'https://api.yelp.com/v3/businesses/search';
 const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+const categoryList =  'categoryJson.json' //"https://www.yelp.com/developers/documentation/v3/all_category_list/categories.json";
+let category = [];
+let matchedList = [];
 
-//ONLOAD CALL
-$(checkInput());
+//Get CategoryList using Async function
+async function getList()
+{
+    //if URL is used to fetch the categoryList add proxyUrl at the start
+    const resp = await fetch(categoryList);
+    category = await resp.json();
+    console.log(category);
+}
+
+
+//Filter the category list
+function filterList(searchText)
+{
+   
+    //Match the users input
+    matchedList = category.filter(category => {
+        const regex = new RegExp(`^${searchText}`, 'gi');
+        return category.title.match(regex) || category.alias.match(regex) || category.parents.forEach(elem => elem.match(regex));
+    })
+
+    //clear list if there is no input
+    if(searchText.length === 0)
+    {
+        clearCategList();
+    }
+    displayList(matchedList);
+}
+
+//display the list that matches the user's input
+function displayList(list)
+{
+   clearCategList();
+    if(list.length > 0)
+    {
+        list.forEach(elem => {
+            const parentList = elem.parents.map(parent => parent).join(',');
+            $('.categ_list').append(
+                `<div class="auto_searchList">
+                    <button class="drop_list" type="button" value="${elem.title} ${parentList}">${elem.title} ${parentList}</button>
+                    </div>`
+            )
+        })
+       
+    }
+}
+
+
+//function to empty the list and clear the html category list
+function clearCategList()
+{
+    matchedList = [];
+    $('.categ_list').empty();
+    
+}
+
 
 //Check user input 
-function checkInput() {
+function checkInput()
+ {
+    //Check the users text input
+    $('.cat_input').keyup(key =>{
+        filterList($('.cat_input').val());
+        //If user presses enter on the category input clear the category list drop down
+        if(key.keyCode === 13 || key.which === 13)
+        {
+            clearCategList();
+        }
+    })
+
+    //When user clicks on an item in the category list set its value to the category input value and clear the list
+    $('.categ_list').on('click', '.drop_list', e =>{
+       $('.cat_input').val($(e.target).val());
+
+    })
+
+    //When user clicks anywhere clear the category list
+    $('html').on('click', () => {
+        clearCategList();
+    })
 
     //local variable to be used to check if user allowed web page to track location
     let canITrack = true;
@@ -17,10 +94,13 @@ function checkInput() {
         const location = $('.loc_input').val();
         const srchRadius = $('.radius_input').val() * 1600 //meter per mile;
         const maxSrch = $('.numSearch_input').val();
+        const categoryVal = $('.cat_input').val().toLowerCase();
+       
         
         //on click prevent default submit behaviour
         e.preventDefault();
-        
+        //clear the category list
+        clearCategList();
         //Check for proper radius and max search input
         if(srchRadius > 40000 || srchRadius <= 0 || maxSrch <= 0 || maxSrch > 50)
         {
@@ -38,7 +118,7 @@ function checkInput() {
                         const longitude = position.coords.longitude;
 
                         //call getResults once position is taken
-                        getResults(latitude,longitude,srchRadius, maxSrch);
+                        getResults(latitude,longitude,srchRadius, maxSrch, categoryVal);
                     }, error =>
                     {
                         //Error handling for geolocation anomalies
@@ -73,7 +153,7 @@ function checkInput() {
             }
             else{
                 //Manual location input call for getResults
-                getResults(0, 0,srchRadius, maxSrch, location);
+                getResults(0, 0,srchRadius, maxSrch, categoryVal, location);
                 
             }
          
@@ -93,7 +173,7 @@ function formatQueryParam(param)
 }
 
 //Main Function to call the GET request(fetch) to get the search result
-function getResults(lat = 0, long = 0, radius, maxSrch, loc = 0)
+function getResults(lat = 0, long = 0, radius, maxSrch, category, loc = 0)
 {
     //query param object declaration and assignment
     const params = {
@@ -101,7 +181,8 @@ function getResults(lat = 0, long = 0, radius, maxSrch, loc = 0)
         longitude: long,
         radius: radius,
         limit: maxSrch,
-        location: loc
+        term: category,
+        location: loc,
     }
 
     //Authorization object
@@ -128,7 +209,6 @@ function getResults(lat = 0, long = 0, radius, maxSrch, loc = 0)
             throw new Error(Response.statusText);
         })
         .then(ResponseJson =>{
-            console.log(ResponseJson);
             displayResult(ResponseJson);
             })
         .catch(err => {
@@ -142,30 +222,45 @@ function displayResult(jsonObj)
 {
     clearDisplay();
 
-    //look through the jsonObj.businesses
-    for(let i=0; i < jsonObj.businesses.length; i++)
+    if(jsonObj.businesses.length === 0)
     {
-        const businesses =  jsonObj.businesses[i];
-        $('.result_list').append(
-            `<li>
-                <ul>
-                    <li>${businesses.name}</li>
-                    <li>Rating: ${businesses.rating}</li>
-                    <li>Price: ${businesses.price}</li>
-                    <li>
-                        <div class="img_cont">
-                            <a href="${businesses.url}" target="_blank">
-                                <img class="result_img img${i}" src="${businesses.image_url}" alt="${businesses.alias}">
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-            `
-        )
+        const TextError = {
+            message: "No Search found"
+        }
+        displayError(TextError);
     }
+    else
+    {
+        //look through the jsonObj.businesses
+        for(let i=0; i < jsonObj.businesses.length; i++)
+        {
+            const businesses =  jsonObj.businesses[i];
+            const status = !businesses.is_closed ? "Open" : "Closed";
+            $('.result_list').append(
+                `<li>
+                    <ul>
+                        <li>${businesses.name}</li>
+                        <li>Rating: ${businesses.rating}</li>
+                        <li>Price: ${businesses.price}</li>
+                        <li>Distance: ${Math.round((businesses.distance * 0.000621371))} Miles</li>
+                        <li class="operational_status">${status}</li>
+                        <li>
+                            <div class="img_cont">
+                                <a href="${businesses.url}" target="_blank">
+                                    <img class="result_img img${i}" src="${businesses.image_url}" alt="${businesses.alias}">
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                `
+            )
+        }
+    }
+    
     $('.display').removeAttr('hidden');
 }
+
 
 //display error result by appending the cause of error into the DOM to be displayed
 function displayError(error)
@@ -181,3 +276,6 @@ function clearDisplay()
     $('.result_list').empty();
     $('.error_sect').empty();
 }
+
+//ONLOAD CALL
+$(checkInput(), getList());

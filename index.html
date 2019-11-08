@@ -5,11 +5,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Click a button and get restaurants near you">
+        <link href="https://fonts.googleapis.com/css?family=Fira+Sans&display=swap" rel="stylesheet">
         <link href="style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <header>
-            <h1>Need a grub? </h1>
+            <h1>What's near me? </h1>
         </header>
 
         <main role="main">
@@ -17,18 +18,28 @@
                 <form class="main_form">
                     <fieldset>
                         <legend>Click the button</legend>
-                        <label class="manual_loc" for="location" hidden>Set Location: 
-                            <input class="loc_input" name="location" id="location" type="text" placeholder="Enter a City,State" >
-                        </label>
-                        <label for="radius">Search Radius: 
-                            <input class="radius_input" name="radius" id="radius" type="number" min="0" max="25" value="10" required> Miles
-                        </label>
-                        <label for="numSearch">Number of Search: 
-                            <input class="numSearch_input" name="numSearch" id="numSearch" type="number" min="1" max="50" value="5" required>
-                        </label>
                         <div>
                             <button class="search_btn" type="submit">NEAR ME!</button>
                         </div>
+                        <label class="manual_loc" for="location" hidden>Set Location: 
+                            <input class="loc_input" name="location" id="location" type="text" placeholder="Enter a City,State" required>
+                        </label>
+                          <label for="radius">How far? 
+                            <input class="radius_input" name="radius" id="radius" type="number" min="0" max="25" value="10" required> Miles
+                        </label>
+                        <label for="numSearch">How many are you looking for? 
+                            <input class="numSearch_input" name="numSearch" id="numSearch" type="number" min="1" max="50" value="5" required>
+                        </label>
+                        <label for="category" class="cat_cont">What are you looking for?</label>
+                        <div class="wrapper">
+                            <input class="cat_input" name="category" id="category" type="text" size="9" placeholder="Food" autocomplete="off">
+                            <div class="categ_list">
+
+                            </div>
+                        </div>
+                        
+                      
+                       
                     </fieldset>
                 </form>
             </section>
