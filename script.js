@@ -265,10 +265,7 @@ function displayResult(jsonObj)
         //look through the jsonObj.businesses
         for(let i=0; i < jsonObj.businesses.length; i++)
         {
-            const businesses =  jsonObj.businesses[i];
-            //businesses.is_closed only checks if business is permanently closed or not, API is unable to retrieve business hours"
-            // const status = !businesses.is_closed ? `<code style="color:green:">Open</code>` : `<code style="color:red:">Closed</code>`;
-        
+            const businesses =  jsonObj.businesses[i];   
             $('.result_list').append(
                 `<li>
                     <ul class="container">
@@ -285,7 +282,6 @@ function displayResult(jsonObj)
                             <li><img class="stars" src="images/small_${businesses.rating}.png" alt="${businesses.rating}"></li>
                             <li>Price: <code>${businesses.price}</code></li>
                             <li>Distance: ${Math.round((businesses.distance * 0.000621371))} Miles</li>
-                            <!--<li class="operational_status">${status}</li>-->
                             
                        </ul></li>
                     </ul>
