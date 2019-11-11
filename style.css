@@ -48,11 +48,9 @@ legend{
 }
 
 fieldset{
-    display: inline;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     padding: 10px;
     border: none;
     color: rgb(241, 240, 240);
