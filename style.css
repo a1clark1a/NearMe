@@ -4,7 +4,7 @@ GET APPROPRIATE COLOR PALETTE */
 :root {
     /*font variables*/
     --main_font:'Fira Sans', sans-serif ;
-    --default_fontSize: 16px;
+    --default_fontSize: 18px;
     --title_fontSize: 40px;
     --label_fontSize: 20px;
     --legend_fontSize: 25px;
