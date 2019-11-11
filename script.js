@@ -266,6 +266,8 @@ function displayResult(jsonObj)
         for(let i=0; i < jsonObj.businesses.length; i++)
         {
             const businesses =  jsonObj.businesses[i];   
+            const service = businesses.transactions.join(', ');
+            console.log(service);
             $('.result_list').append(
                 `<li>
                     <ul class="container">
@@ -282,6 +284,8 @@ function displayResult(jsonObj)
                             <li><img class="stars" src="images/small_${businesses.rating}.png" alt="${businesses.rating}"></li>
                             <li>Price: <code>${businesses.price}</code></li>
                             <li>Distance: ${Math.round((businesses.distance * 0.000621371))} Miles</li>
+                            <li>Service: ${ service.length > 0 ? service.replace('_', " ") : "Dine-in"}</li>
+                            <li>Reviews: ${businesses.review_count}</li>
                             
                        </ul></li>
                     </ul>

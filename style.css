@@ -150,8 +150,6 @@ a, button {
 
 .container{
     display: flex;
-    margin-bottom: 10px;
-    background-color: rgb(238, 238, 238);
     height: 250px;;
 }
 
@@ -184,7 +182,7 @@ input{
 }
 
 .info_list {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .result_list{
@@ -198,11 +196,15 @@ input{
 .result_list > li{
    width: 30%;
    height: 100%;
-    align-items: stretch;
+   align-items: stretch;
+   background-color: rgb(238, 238, 238);
+   border: .5px solid gray;
+   margin: 5px 10px 5px 10px;
+   padding-bottom: 10px
 }
 
 .info_list > li{
-    line-height: 1.5;
+    line-height: 2;
 }
 
 .img_cont > a {
@@ -252,7 +254,16 @@ input{
             margin: -5px 0 10px 10px;
             align-self: center;
         }
+
+        .info_list{
+            margin-top: 5px;
+        }
         
+        .info_list > li{
+            text-align: left;
+            line-height: 1.5;
+    
+        }
     }
 
     @media screen and (min-width:500px)
@@ -289,6 +300,7 @@ input{
         .info_list > li{
             text-align: left;
             line-height: 1.5;
+    
         }
 
         .container{
