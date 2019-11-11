@@ -12,7 +12,6 @@ async function getList()
     //if URL is used to fetch the categoryList add proxyUrl at the start
     const resp = await fetch(categoryList);
     category = await resp.json();
-    console.log(category);
 }
 
 
@@ -86,6 +85,14 @@ function checkInput()
         clearCategList();
     })
 
+    //When user clicks more option , show more form options for more customized inputs
+    $('.moreOpt_btn').on('click', () =>{
+        $('.label_radius').removeAttr('hidden');
+        $('.label_num').removeAttr('hidden');
+        $('.moreOpt_btn').hide();
+
+    })
+
     //local variable to be used to check if user allowed web page to track location
     let canITrack = true;
     $('.search_btn').on('click', e =>
@@ -93,16 +100,14 @@ function checkInput()
         //local variables for easy access to user inputs
         const location = $('.loc_input').val();
         const srchRadius = $('.radius_input').val() * 1600 //meter per mile;
-        const maxSrch = $('.numSearch_input').val();
         const categoryVal = $('.cat_input').val().toLowerCase();
-       
-        
+      
         //on click prevent default submit behaviour
         e.preventDefault();
         //clear the category list
         clearCategList();
         //Check for proper radius and max search input
-        if(srchRadius > 40000 || srchRadius <= 0 || maxSrch <= 0 || maxSrch > 50)
+        if(srchRadius > 40000 || srchRadius <= 0 )
         {
             alert("Check your input values");
         }
@@ -118,7 +123,7 @@ function checkInput()
                         const longitude = position.coords.longitude;
 
                         //call getResults once position is taken
-                        getResults(latitude,longitude,srchRadius, maxSrch, categoryVal);
+                        getResults(latitude,longitude,srchRadius, categoryVal);
                     }, error =>
                     {
                         //Error handling for geolocation anomalies
@@ -152,8 +157,18 @@ function checkInput()
                     });
             }
             else{
-                //Manual location input call for getResults
-                getResults(0, 0,srchRadius, maxSrch, categoryVal, location);
+                
+                //If user denies web app to get user location, check if user manually inputs location
+                if(location === '' || location === null || location === undefined)
+                {
+                    alert("Location input must not be empty")
+                }
+                else
+                {
+                    //Manual location input call for getResults
+                    getResults(0, 0,srchRadius, categoryVal, location);
+                }
+               
                 
             }
          
@@ -162,7 +177,16 @@ function checkInput()
     })
 }
 
-
+//function to scroll smoothly when user clicks on the main button
+function smoothScrollToResults()
+{
+    const hash = $('.search_btn').parent().attr('href');
+    $('html, body').animate({
+        scrollTop: $(hash).offset().top
+    }, 100, () => {
+        window.location.hash = hash;
+    })
+}
 
 //Format the fetch url to the correct GET request format
 function formatQueryParam(param)
@@ -173,14 +197,14 @@ function formatQueryParam(param)
 }
 
 //Main Function to call the GET request(fetch) to get the search result
-function getResults(lat = 0, long = 0, radius, maxSrch, category, loc = 0)
+function getResults(lat = 0, long = 0, radius, category, loc = 0)
 {
     //query param object declaration and assignment
     const params = {
         latitude: lat,
         longitude: long,
         radius: radius,
-        limit: maxSrch,
+        limit: 50,
         term: category,
         location: loc,
     }
@@ -214,6 +238,8 @@ function getResults(lat = 0, long = 0, radius, maxSrch, category, loc = 0)
         .catch(err => {
             displayError(err);
         });
+
+    
 }
 
 
@@ -235,15 +261,10 @@ function displayResult(jsonObj)
         for(let i=0; i < jsonObj.businesses.length; i++)
         {
             const businesses =  jsonObj.businesses[i];
-            const status = !businesses.is_closed ? "Open" : "Closed";
+            const status = !businesses.is_closed ? `<code style="color:green:">Open</code>` : `<code style="color:red:">Closed</code>`;
             $('.result_list').append(
                 `<li>
-                    <ul>
-                        <li>${businesses.name}</li>
-                        <li>Rating: ${businesses.rating}</li>
-                        <li>Price: ${businesses.price}</li>
-                        <li>Distance: ${Math.round((businesses.distance * 0.000621371))} Miles</li>
-                        <li class="operational_status">${status}</li>
+                    <ul class="container">
                         <li>
                             <div class="img_cont">
                                 <a href="${businesses.url}" target="_blank">
@@ -251,6 +272,13 @@ function displayResult(jsonObj)
                                 </a>
                             </div>
                         </li>
+                        <li><ul class="info_list">
+                            <li><h3>${businesses.name}</h3></li>
+                            <li><img class="stars" src="images/small_${businesses.rating}.png" alt="${businesses.rating}"></li>
+                            <li>Price: <code>${businesses.price}</code></li>
+                            <li>Distance: ${Math.round((businesses.distance * 0.000621371))} Miles</li>
+                            <li class="operational_status">${status}</li>
+                       </ul></li>
                     </ul>
                 </li>
                 `
@@ -259,6 +287,7 @@ function displayResult(jsonObj)
     }
     
     $('.display').removeAttr('hidden');
+    smoothScrollToResults();
 }
 
 
