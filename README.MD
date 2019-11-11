@@ -20,16 +20,16 @@ Landing Page Desktop view:
 
 Landing page Mobile view:
 
-~[landing page](screenshots/NearMe_DisplayResultMobile.PNG
+![landing page](screenshots/NearMe_DisplayResultMobile.PNG)
 
 
 Result Display Desktop view:
 
-![Display](screenshots/NearMe_DisplayResult.PNG
+![Display](screenshots/NearMe_DisplayResult.PNG)
 
 
 Result Display Mobile view:
 
-![Display](screenshots/NearMe_DisplayResultMobile.PNG
+![Display](screenshots/NearMe_DisplayResultMobile.PNG)
 
 
