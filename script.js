@@ -97,6 +97,7 @@ function checkInput()
     let canITrack = true;
     $('.search_btn').on('click', e =>
     {
+        console.log('click');
         //local variables for easy access to user inputs
         const location = $('.loc_input').val();
         const srchRadius = $('.radius_input').val() * 1600 //meter per mile;
@@ -106,10 +107,14 @@ function checkInput()
         e.preventDefault();
         //clear the category list
         clearCategList();
-        //Check for proper radius and max search input
-        if(srchRadius > 40000 || srchRadius <= 0 )
+        //Check for proper radius  input
+        if(srchRadius > 40000 )
         {
-            alert("Check your input values");
+            alert("Can't be greater than 25 miles");
+        }
+        else if( srchRadius <= 0 )
+        {
+            alert("Can'tbe a negative number")
         }
         else
         {
@@ -261,7 +266,9 @@ function displayResult(jsonObj)
         for(let i=0; i < jsonObj.businesses.length; i++)
         {
             const businesses =  jsonObj.businesses[i];
-            const status = !businesses.is_closed ? `<code style="color:green:">Open</code>` : `<code style="color:red:">Closed</code>`;
+            //businesses.is_closed only checks if business is permanently closed or not, API is unable to retrieve business hours"
+            // const status = !businesses.is_closed ? `<code style="color:green:">Open</code>` : `<code style="color:red:">Closed</code>`;
+        
             $('.result_list').append(
                 `<li>
                     <ul class="container">
@@ -269,6 +276,7 @@ function displayResult(jsonObj)
                             <div class="img_cont">
                                 <a href="${businesses.url}" target="_blank">
                                     <img class="result_img img${i}" src="${businesses.image_url}" alt="${businesses.alias}">
+                                    <h3 class="yelp_link">Read More...</h3>
                                 </a>
                             </div>
                         </li>
@@ -277,7 +285,8 @@ function displayResult(jsonObj)
                             <li><img class="stars" src="images/small_${businesses.rating}.png" alt="${businesses.rating}"></li>
                             <li>Price: <code>${businesses.price}</code></li>
                             <li>Distance: ${Math.round((businesses.distance * 0.000621371))} Miles</li>
-                            <li class="operational_status">${status}</li>
+                            <!--<li class="operational_status">${status}</li>-->
+                            
                        </ul></li>
                     </ul>
                 </li>
