@@ -4,7 +4,7 @@
 
 ## Author: Anthony Clark Perfecto
 
-## Technology: HTML5, CSS3, JavascriptES6, jQuery 3.4.1, https://www.yelp.com/developers/documentation/v3/business_search
+## Technology: HTML5, CSS3, JavascriptES6, jQuery 3.4.1, API: https://www.yelp.com/developers/documentation/v3/business_search
 
 ## Summary:
 - Allow users to quickly find business around you with a click of a button
