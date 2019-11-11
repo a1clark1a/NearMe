@@ -137,24 +137,24 @@ function checkInput()
                             case error.PERMISSION_DENIED:
                                 //MAIN error handling for when user denies tracking
                                 //reveal manual location input form and change canITrack variable to false
-                                $('.manual_loc').removeAttr('hidden');
+                                $('.loc_input').removeAttr('hidden');
                                 canITrack = false;
                                 break;
                             case error.POSITION_UNAVAILABLE:
                                 console.log("Location cannot be found");
-                                $('.manual_loc').removeAttr('hidden');
+                                $('.loc_input').removeAttr('hidden');
                                 canITrack = false;
                                 displayError(error);
                                 break;
                             case error.TIMEOUT:
                                 console.log("The request to get the user location has timed out");
-                                $('.manual_loc').removeAttr('hidden');
+                                $('.loc_input').removeAttr('hidden');
                                 canITrack = false;
                                 displayError(error);
                                 break;
                             case error.UNKNOWN_ERROR:
                                 console.log("An unknown error occured");
-                                $('.manual_loc').removeAttr('hidden');
+                                $('.loc_input').removeAttr('hidden');
                                 canITrack = false;
                                 displayError(error);
                                 break;

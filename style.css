@@ -48,6 +48,7 @@ legend{
 }
 
 fieldset{
+    display: inline;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -216,6 +217,11 @@ input{
     margin: -20px 0 10px 20px;
     align-self: center;
 
+}
+
+.error_txt{
+    font-size: 30px;
+    color: red;
 }
 
 
