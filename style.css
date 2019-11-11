@@ -178,7 +178,7 @@ input{
 }
 
 
-@media screen and (max-width:320px)
+@media screen and (max-width:430px)
 {
     .background_wrapper{
         background-position: right -175px bottom 0;
