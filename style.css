@@ -213,8 +213,12 @@ input {
 }
 
 .error_txt {
-  font-size: 30px;
+  font-size: 20px;
   color: red;
+}
+
+.error-sect {
+  padding: 10px;
 }
 
 @media screen and (min-width: 500px) {
