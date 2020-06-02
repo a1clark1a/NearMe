@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "https://a1clark1a.github.io/NearMe/",
+  "start_url": ".",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone"
