@@ -2,7 +2,7 @@
 //GLOBAL VARS
 const yelpBaseUrl = "https://api.yelp.com/v3/businesses/search"
 const proxyUrl = "https://cors-anywhere.herokuapp.com/"
-const categoryList = "../categoryJson.json" //"https://www.yelp.com/developers/documentation/v3/all_category_list/categories.json";
+const categoryList = "./categoryJson.json" //"https://www.yelp.com/developers/documentation/v3/all_category_list/categories.json";
 let category = []
 let matchedList = []
 
@@ -84,7 +84,6 @@ function checkInput() {
   //local variable to be used to check if user allowed web page to track location
   let canITrack = true
   $(".search_btn").on("click", (e) => {
-    console.log("click")
     //local variables for easy access to user inputs
     const location = $(".loc_input").val()
     const srchRadius = $(".radius_input").val() * 1600 //meter per mile;
@@ -135,7 +134,6 @@ function checkInput() {
                 displayError(error)
                 break
               case error.UNKNOWN_ERROR:
-                console.log("An unknown error occured")
                 $(".loc_input").removeAttr("hidden")
                 canITrack = false
                 displayError(error)
@@ -235,29 +233,33 @@ function displayResult(jsonObj) {
     for (let i = 0; i < jsonObj.businesses.length; i++) {
       const businesses = jsonObj.businesses[i]
       const service = businesses.transactions.join(", ")
-      console.log(service)
       $(".result_list").append(
         `<li>
-                    <ul class="container">
-                        <li>
-                            <div class="img_cont">
-                                <a href="${businesses.url}" target="_blank">
-                                    <img class="result_img img${i}" src="${
+            <ul class="container">
+                <li>
+                  <div class="img_cont">
+                        <a href="${businesses.url}" target="_blank">
+                            <img class="result_img img${i}" src="${
           businesses.image_url
         }" alt="${businesses.alias}">
-                                    <h3 class="yelp_link">Read More...</h3>
-                                </a>
-                            </div>
-                        </li>
-                        <li><ul class="info_list">
-                            <li><h3>${businesses.name}</h3></li>
-                            <li><img class="stars" src="images/small_${
-                              businesses.rating
-                            }.png" alt="${businesses.rating}"></li>
-                            <li>Price: <code>${businesses.price}</code></li>
-                            <li>Distance: ${Math.round(
-                              businesses.distance * 0.000621371
-                            )} Miles</li>
+                                <h3 class="yelp_link">Read More...</h3>
+                        </a>
+                      </div>
+                </li>
+                <li>
+                  <ul class="info_list">
+                    <li>
+                      <h3>${businesses.name}</h3>
+                    </li>
+                    <li>
+                      <img class="stars" src="images/small_${
+                        businesses.rating
+                      }.png" alt="${businesses.rating}">
+                    </li>
+                    <li>Price: <code>${businesses.price}</code></li>
+                    <li>Distance: ${Math.round(
+                      businesses.distance * 0.000621371
+                    )} Miles</li>
                             <li>Service: ${
                               service.length > 0
                                 ? service.replace("_", " ")

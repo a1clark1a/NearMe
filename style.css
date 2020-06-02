@@ -12,6 +12,11 @@
   background-repeat: no-repeat;
   background-size: cover;
   padding: 60px 0 60px 0;
+  background-position: -175px 0;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 h1 {
@@ -20,6 +25,7 @@ h1 {
   text-shadow: 2px 2px 2px black;
   padding: 5px 0 5px 0;
   color: rgb(241, 240, 240);
+  text-align: center;
 }
 
 section {
@@ -141,12 +147,16 @@ button {
 
 .container {
   display: flex;
-  height: 250px;
+  min-height: 250px;
+  height: 100%;
 }
 
 .info_list > li {
   text-align: left;
   line-height: 1.5;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 5px;
 }
 
 .stars {
@@ -167,8 +177,8 @@ input {
 }
 
 .result_img {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   margin: 20px;
 }
 
@@ -178,24 +188,17 @@ input {
 
 .result_list {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-content: stretch;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .result_list > li {
-  width: 30%;
+  margin-top: 20px;
   height: 100%;
   align-items: stretch;
   background-color: rgb(238, 238, 238);
   border: 0.5px solid gray;
   margin: 5px 10px 5px 10px;
   padding-bottom: 10px;
-}
-
-.info_list > li {
-  line-height: 2;
 }
 
 .img_cont > a {
@@ -214,78 +217,22 @@ input {
   color: red;
 }
 
-@media screen and (max-width: 1000px) {
-  @media screen and (min-width: 180px) {
-    .background_wrapper {
-      background-position: right -175px bottom 0;
-    }
+@media screen and (min-width: 500px) {
+  .background_wrapper {
+    background-position: initial;
+  }
+}
 
-    .result_img {
-      width: 120px;
-      height: 120px;
-      margin: 10px;
-    }
-
-    .result_list > li {
-      width: 100%;
-    }
-
-    .container {
-      height: 100%;
-    }
-
-    .yelp_link {
-      text-align: left;
-      margin: -5px 0 10px 10px;
-      align-self: center;
-    }
-
-    .info_list {
-      margin-top: 5px;
-    }
-
-    .info_list > li {
-      text-align: left;
-      line-height: 1.5;
-    }
+@media screen and (min-width: 760px) {
+  .result_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
-  @media screen and (min-width: 500px) {
-    .yelp_link {
-      text-align: left;
-      margin: -10px 0 10px 10px;
-      align-self: center;
-    }
-
-    .result_list > li {
-      width: 50%;
-    }
-
-    .container {
-      margin-right: 10px;
-    }
-
-    .background_wrapper {
-      background-position: 0;
-    }
-
-    .result_img {
-      width: 120px;
-      height: 120px;
-      margin: 10px;
-    }
-
-    .info_list {
-      margin-top: 10px;
-    }
-
-    .info_list > li {
-      text-align: left;
-      line-height: 1.5;
-    }
-
-    .container {
-      height: 200px;
-    }
+  .result_list > li {
+    max-width: 320px;
+    min-height: 320px;
   }
 }
