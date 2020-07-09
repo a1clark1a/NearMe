@@ -1,5 +1,7 @@
 # NEARME APP
 
+[![pas](https://img.shields.io/static/v1?&message=ProgressiveApp.Store&color=74b9ff&style=flat&label=Discover%20NearMe%20at)](https://progressiveapp.store/pwa/NearMe)
+
 ## Live app: https://a1clark1a.github.io/NearMe/
 
 ## Author: Anthony Clark Perfecto
